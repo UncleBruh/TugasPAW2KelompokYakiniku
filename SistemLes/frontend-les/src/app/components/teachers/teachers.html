@@ -1,0 +1,64 @@
+<div class="container">
+  <h3>👨‍🏫 {{ isEditMode ? 'Edit Data Pengajar' : 'Data Pengajar & Gaji' }}</h3>
+  
+  <div class="card p-3 mb-4 bg-light">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input [(ngModel)]="form.name" class="form-control" placeholder="Nama Pengajar">
+      </div>
+      <div class="col-md-3">
+        <input [(ngModel)]="form.email" class="form-control" placeholder="Email">
+      </div>
+      <div class="col-md-2">
+        <input [(ngModel)]="form.phone" class="form-control" placeholder="No. HP">
+      </div>
+      <div class="col-md-2">
+        <select [(ngModel)]="form.specialty" class="form-select">
+          <option value="">- Spesialisasi -</option>
+          <option>TOEFL</option>
+          <option>IELTS</option>
+          <option>TOEIC</option>
+          <option>General English</option>
+          <option>Conversation</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <input [(ngModel)]="form.salary" type="number" class="form-control" placeholder="Gaji (Rp)">
+      </div>
+
+      <div class="col-md-12 text-end mt-2">
+        <button *ngIf="isEditMode" (click)="batal()" class="btn btn-secondary me-2">Batal</button>
+        <button (click)="simpan()" class="btn px-4" [ngClass]="isEditMode ? 'btn-warning' : 'btn-primary'">
+          {{ isEditMode ? 'Update Data' : '💾 Simpan Pengajar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped align-middle">
+    <thead class="table-primary">
+      <tr>
+        <th>Nama</th>
+        <th>Spesialisasi</th>
+        <th>Kontak</th>
+        <th>Gaji</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of teachers">
+        <td>{{ t.name }}</td>
+        <td><span class="badge bg-info text-dark">{{ t.specialty }}</span></td>
+        <td>{{ t.email }}<br><small class="text-muted">{{ t.phone }}</small></td>
+        <td class="fw-bold text-success">Rp {{ t.salary | number }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-1" (click)="edit(t)">Edit</button>
+          <button class="btn btn-danger btn-sm" (click)="hapus(t._id)">Hapus</button>
+        </td>
+      </tr>
+      <tr *ngIf="teachers.length === 0">
+        <td colspan="5" class="text-center py-4 text-muted">Belum ada data pengajar.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
