@@ -4,24 +4,10 @@ import { Observable } from 'rxjs';
 
 export interface Course { _id?: string; name: string; level: string; price: number; duration: string; description?: string; }
 export interface Student { _id?: string; name: string; email: string; phone: string; program: string; }
-export interface Schedule { _id?: string; day: string; time: string; activity: string; teacher: string; }
+export interface Schedule { _id?: string; day: string; time: string; activity: string; teacher?: string;}
 export interface User { username: string; password: string; }
 export interface Teacher { _id?: string; name: string; email: string; phone: string; specialty: string; salary: number; }
-
-export interface Score {
-  _id?: string;
-  studentId: string;
-  testType: 'TOEFL' | 'IELTS' | 'TOEIC';
-  date: Date;
-  sections: {
-    listening: number;
-    reading: number;
-    structure?: number;
-    writing?: number;  
-    speaking?: number; 
-  };
-  finalScore: number;
-}
+export interface Score {_id?: string; studentId: string; testType: 'TOEFL' | 'IELTS' | 'TOEIC'; date: Date; sections: { listening: number; reading: number; structure?: number; writing?: number;   speaking?: number; }; finalScore: number; }
 
 @Injectable({ providedIn: 'root' })
 export class CourseService {

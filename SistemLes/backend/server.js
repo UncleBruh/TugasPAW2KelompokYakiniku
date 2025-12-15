@@ -32,7 +32,11 @@ const Student = mongoose.model('Student', new mongoose.Schema({
 }));
 
 const Schedule = mongoose.model('Schedule', new mongoose.Schema({
-  day: String, time: String, activity: String
+  day: String, time: String, activity: String, teacher: String
+}));
+
+const Teacher = mongoose.model('Teacher', new mongoose.Schema({
+  name: String, email: String, phone: String, specialty: String, salary: Number
 }));
 
 app.post('/api/register', async (req, res) => {
@@ -76,5 +80,10 @@ app.delete('/api/students/:id', async (req, res) => { await Student.findByIdAndD
 app.get('/api/schedules', async (req, res) => { res.json(await Schedule.find()); });
 app.post('/api/schedules', async (req, res) => { await new Schedule(req.body).save(); res.json({msg: 'ok'}); });
 app.delete('/api/schedules/:id', async (req, res) => { await Schedule.findByIdAndDelete(req.params.id); res.json({msg: 'del'}); });
+
+app.get('/api/teachers', async (req, res) => { res.json(await Teacher.find()); });
+app.post('/api/teachers', async (req, res) => { await new Teacher(req.body).save(); res.json({msg: 'ok'}); });
+app.put('/api/teachers/:id', async (req, res) => { await Teacher.findByIdAndUpdate(req.params.id, req.body); res.json({msg: 'updated'}); });
+app.delete('/api/teachers/:id', async (req, res) => { await Teacher.findByIdAndDelete(req.params.id); res.json({msg: 'deleted'}); });
 
 app.listen(PORT, () => console.log(`Server Auth jalan di http://localhost:${PORT}`));

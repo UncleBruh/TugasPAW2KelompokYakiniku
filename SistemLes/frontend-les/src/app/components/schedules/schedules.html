@@ -27,7 +27,7 @@
         <select [(ngModel)]="form.teacher" class="form-select">
           <option value="">- Pilih Pengajar -</option>
           <option *ngFor="let t of teacherList" [value]="t.name">
-            {{ t.name }} ({{ t.specialty }})
+            {{ t.name }} {{ t.specialty ? '(' + t.specialty + ')' : '' }}
           </option>
         </select>
       </div>
