@@ -1,0 +1,66 @@
+<div class="container">
+  <h3>📅 Atur Jadwal Les</h3>
+  
+  <div class="card p-3 mb-4 bg-light">
+    <div class="row g-2">
+      <div class="col-md-2">
+        <select [(ngModel)]="form.day" class="form-select">
+          <option value="">- Hari -</option>
+          <option>Senin</option><option>Selasa</option><option>Rabu</option>
+          <option>Kamis</option><option>Jumat</option><option>Sabtu</option>
+        </select>
+      </div>
+      <div class="col-md-2">
+        <input [(ngModel)]="form.time" type="time" class="form-control">
+      </div>
+      
+      <div class="col-md-3">
+        <select [(ngModel)]="form.activity" class="form-select">
+          <option value="">- Pilih Kelas -</option>
+          <option *ngFor="let c of courseList" [value]="c.name">
+            {{ c.name }} ({{ c.level }})
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <select [(ngModel)]="form.teacher" class="form-select">
+          <option value="">- Pilih Pengajar -</option>
+          <option *ngFor="let t of teacherList" [value]="t.name">
+            {{ t.name }} ({{ t.specialty }})
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <button (click)="simpan()" class="btn btn-warning w-100">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-bordered border-warning align-middle">
+    <thead class="table-warning">
+      <tr>
+        <th>Hari</th>
+        <th>Jam</th>
+        <th>Kelas / Kegiatan</th>
+        <th>Pengajar</th> <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of schedules">
+        <td>{{ s.day }}</td>
+        <td>{{ s.time }}</td>
+        <td>{{ s.activity }}</td>
+        <td>{{ s.teacher }}</td> <td>
+          <button class="btn btn-danger btn-sm" (click)="hapus(s._id)">X</button>
+        </td>
+      </tr>
+      <tr *ngIf="schedules.length === 0">
+        <td colspan="5" class="text-center py-4 text-muted">
+          Belum ada jadwal.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
