@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h4 class="mb-0">📝 Input Nilai Hasil Tes</h4>
+    </div>
+    <div class="card-body">
+      
+      <div class="mb-4">
+        <label class="fw-bold form-label">Pilih Jenis Tes:</label>
+        <select [(ngModel)]="testType" class="form-select">
+          <option value="TOEFL">TOEFL (Listening, Structure, Reading)</option>
+          <option value="IELTS">IELTS (L, R, Writing, Speaking)</option>
+          <option value="TOEIC">TOEIC (Listening, Reading)</option>
+        </select>
+      </div>
+
+      <hr>
+
+      <div *ngIf="testType === 'TOEFL'" class="row g-3">
+        <h5 class="text-info">Input Nilai TOEFL (Range: 31-68)</h5>
+        <div class="col-md-4">
+          <label>Listening</label>
+          <input type="number" [(ngModel)]="sections.listening" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Structure</label>
+          <input type="number" [(ngModel)]="sections.structure" class="form-control">
+        </div>
+        <div class="col-md-4">
+          <label>Reading</label>
+          <input type="number" [(ngModel)]="sections.reading" class="form-control">
+        </div>
+      </div>
+
+      <div *ngIf="testType === 'IELTS'" class="row g-3">
+        <h5 class="text-danger">Input Nilai IELTS (Band 0-9)</h5>
+        <div class="col-md-3">
+          <label>Listening</label>
+          <input type="number" [(ngModel)]="sections.listening" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Reading</label>
+          <input type="number" [(ngModel)]="sections.reading" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Writing</label>
+          <input type="number" [(ngModel)]="sections.writing" class="form-control">
+        </div>
+        <div class="col-md-3">
+          <label>Speaking</label>
+          <input type="number" [(ngModel)]="sections.speaking" class="form-control">
+        </div>
+      </div>
+
+      <div *ngIf="testType === 'TOEIC'" class="row g-3">
+        <h5 class="text-success">Input Nilai TOEIC (Range 5-495)</h5>
+        <div class="col-md-6">
+          <label>Listening</label>
+          <input type="number" [(ngModel)]="sections.listening" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label>Reading</label>
+          <input type="number" [(ngModel)]="sections.reading" class="form-control">
+        </div>
+      </div>
+
+      <div class="alert alert-secondary mt-4 text-center">
+        <h4>Total Skor: <strong>{{ hitungScore() }}</strong></h4>
+      </div>
+
+      <div class="d-grid gap-2">
+        <button (click)="simpan()" class="btn btn-primary">💾 Simpan Hasil Tes</button>
+        <a routerLink="/students" class="btn btn-outline-secondary">Batal</a>
+      </div>
+    </div>
+  </div>
+</div>

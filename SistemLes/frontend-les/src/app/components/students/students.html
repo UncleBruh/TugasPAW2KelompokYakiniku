@@ -1,0 +1,81 @@
+<div class="container">
+  <h3>🎓 {{ isEditMode ? 'Edit Data Murid' : 'Pendaftaran Murid Baru' }}</h3>
+  
+  <div class="card p-3 mb-4 bg-light">
+    <div class="row g-2">
+      <div class="col-md-3">
+        <input [(ngModel)]="form.name" class="form-control" placeholder="Nama Lengkap">
+      </div>
+      
+      <div class="col-md-3">
+        <input [(ngModel)]="form.email" class="form-control" placeholder="Email">
+      </div>
+      
+      <div class="col-md-2">
+        <input [(ngModel)]="form.phone" class="form-control" placeholder="No. HP">
+      </div>
+      
+      <div class="col-md-2">
+        <select [(ngModel)]="form.program" class="form-select">
+          <option value="">- Pilih Kelas -</option>
+          <option *ngFor="let c of courseList" [value]="c.name">
+            {{ c.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-2">
+        <div class="d-flex gap-1">
+          <button *ngIf="isEditMode" (click)="batal()" class="btn btn-secondary w-50">
+            Batal
+          </button>
+          
+          <button (click)="simpan()" class="btn w-100" 
+                  [ngClass]="isEditMode ? 'btn-warning' : 'btn-success'">
+            {{ isEditMode ? 'Update' : 'Daftar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped align-middle">
+    <thead class="table-success">
+      <tr>
+        <th>Nama</th>
+        <th>Program</th>
+        <th>Kontak</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of students">
+        <td>{{ s.name }}</td>
+        <td><span class="badge bg-primary">{{ s.program }}</span></td>
+        <td>
+          {{ s.email }}<br>
+          <small class="text-muted">{{ s.phone }}</small>
+        </td>
+        <td>
+          <a [routerLink]="['/students/score', s._id]" class="btn btn-info btn-sm me-1">
+            📝 Nilai
+          </a>
+          
+          <button class="btn btn-warning btn-sm me-1" (click)="edit(s)">
+            Edit
+          </button>
+          
+          <button class="btn btn-danger btn-sm" (click)="hapus(s._id)">
+            Hapus
+          </button>
+        </td>
+      </tr>
+      
+      <tr *ngIf="students.length === 0">
+        <td colspan="4" class="text-center py-4 text-muted">
+          Belum ada data siswa.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
